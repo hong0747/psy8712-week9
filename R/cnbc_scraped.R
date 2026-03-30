@@ -40,10 +40,15 @@ for(i in c(1:4)){
 
 
 # Visualization
-#Displays an appropriate tidyverse visualization of the relationship between source and length.
+ggplot(cnbc_tbl, aes(x=source, y=length)) +
+  geom_boxplot() +
+  scale_x_discrete("Source") +
+  scale_y_continuous("Length") + 
+  labs(title = "Length of Headlines by Source")
 
 # Analysis
 #Runs an ANOVA comparing mean lengths across the four sources, including calculating the p-value associated with that relationship. Don't worry about post-hoc tests. You will probably want to look at anova() and/or aov().
+
 
 # Publication
 # INSERT COMMENT
