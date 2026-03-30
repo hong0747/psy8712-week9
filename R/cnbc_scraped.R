@@ -47,9 +47,14 @@ ggplot(cnbc_tbl, aes(x=source, y=length)) +
   labs(title = "Length of Headlines by Source")
 
 # Analysis
-#Runs an ANOVA comparing mean lengths across the four sources, including calculating the p-value associated with that relationship. Don't worry about post-hoc tests. You will probably want to look at anova() and/or aov().
-
+cnbc_aov <- aov(length ~ source, data = cnbc_tbl)
+cnbc_aov_summary <- summary(cnbc_aov)
+cnbc_aov_summary
+cnbc_F <- cnbc_aov_summary[[1]]$`F value`[1]
+cnbc_p <- cnbc_aov_summary[[1]]$`Pr(>F)`[1]
+cnbc_df_1 <- cnbc_aov_summary[[1]]$Df[1]
+cnbc_df_2 <- cnbc_aov$df.residual
 
 # Publication
-# INSERT COMMENT
-paste("The results of an ANOVA comparing lengths across sources was F(", INSERTDFN, INSERTDFD, ") = ", sub("^0\\.", ".", round(INSERTF, 2)), "p = ", sub("^0\\.", ".", round(INSERTP, 2)), ". This test ", ifelse(INSERTF < .05, "was", "was not"), " statistically significant.”)
+# The results of an ANOVA comparing lengths across sources was F(3, 130) = 3.08, p = .03. This test was statistically significant.
+paste("The results of an ANOVA comparing lengths across sources was F(", cnbc_df_1, ", ", cnbc_df_2, ") = ", sub("^0\\.", ".", round(cnbc_F, 2)), ", p = ", sub("^0\\.", ".", round(cnbc_p, 2)), ". This test ", ifelse(cnbc_p < .05, "was", "was not"), " statistically significant.", sep="")
