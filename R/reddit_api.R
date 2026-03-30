@@ -22,7 +22,11 @@ ggplot(rstats_month_tbl, aes(x=upvotes, y=comments)) +
 rstats_month_cor <- cor.test(rstats_month_tbl$upvotes, rstats_month_tbl$comments)
 rstats_month_r <- rstats_month_cor$estimate
 rstats_month_p <- rstats_month_cor$p.value
+rstats_month_df <- rstats_month_cor$parameter
 rstats_month_r
 rstats_month_p
+rstats_month_df
 
 # Publication
+# The correlation between upvotes and comments was r(28) = .09, p = .62. This test was not statistically significant.
+paste("The correlation between upvotes and comments was r(", rstats_month_df, ") = ", sub("^0\\.", ".", round(rstats_month_r, 2)), ", p = ", sub("^0\\.", ".", round(rstats_month_p, 2)), ". This test ", ifelse(rstats_month_p < 0.05, "was", "was not"), " statistically significant.", sep = "")
